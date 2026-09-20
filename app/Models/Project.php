@@ -56,16 +56,10 @@ class Project extends Model implements HasMedia
     {
         return $this->hasMany(ModelHotspot::class)->orderBy('order');
     }
-
-    public function scopePublished($query)
-    {
-        return $query->where('published', true)
-                     ->where(function ($q) {
-                         $q->whereNull('published_at')
-                           ->orWhere('published_at', '<=', now());
-                     });
-    }
-
+public function scopePublished($query)
+{
+    return $query->where('published', true);
+}
     public function scopeFeatured($query)
     {
         return $query->where('featured', true);

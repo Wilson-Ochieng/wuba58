@@ -9,6 +9,10 @@ export default defineConfig({
             refresh: true,
         }),
         tailwindcss(),
+        laravel({
+            input: ['resources/css/app.css', 'resources/js/app.js'],
+            refresh: true,
+        }),
     ],
     server: {
         watch: {

@@ -81,10 +81,12 @@ class ProjectResource extends Resource
                     Forms\Components\SpatieMediaLibraryFileUpload::make('video')
                         ->collection('video')->acceptedFileTypes(['video/mp4', 'video/webm']),
 
-                    Forms\Components\SpatieMediaLibraryFileUpload::make('model')
-                        ->collection('model')
-                        ->acceptedFileTypes(['model/gltf-binary', 'application/octet-stream'])
-                        ->helperText('Upload .glb file (Draco-compressed recommended)'),
+                 Forms\Components\SpatieMediaLibraryFileUpload::make('model')
+    ->collection('model')
+    ->label('3D Model (.glb)')
+    ->helperText('Upload a .glb file (Draco-compressed recommended). Max 100MB.')
+    ->maxSize(102400)   // 100MB in KB
+    ->rules(['file', 'mimes:glb,gltf,bin']) ,
 
                     Forms\Components\SpatieMediaLibraryFileUpload::make('panorama')
                         ->collection('panorama')->image()->multiple(),

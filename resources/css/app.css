@@ -1,11 +1,197 @@
-@import 'tailwindcss';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* ═══ GOLD (Light Gold → Metallic Gold) ═══ */
+    --color-gold-50:  #fdf9e8;
+    --color-gold-100: #fbf1c6;
+    --color-gold-200: #f8e39a;
+    --color-gold-300: #f2d075;
+    --color-gold-400: #EFC967;   /* Light Gold */
+    --color-gold-500: #ECB143;   /* Metallic Gold — PRIMARY */
+    --color-gold-600: #d49a35;
+    --color-gold-700: #b07b28;
+    --color-gold-800: #855c1c;
+    --color-gold-900: #5c3f13;
+
+    /* ═══ AMBER (secondary accent) ═══ */
+    --color-amber-50:  #fdf2e4;
+    --color-amber-100: #fbe0c1;
+    --color-amber-200: #f7c088;
+    --color-amber-300: #f2a155;
+    --color-amber-400: #ea8f40;
+    --color-amber-500: #E48633;  /* Amber Gold — SECONDARY */
+    --color-amber-600: #cc6f26;
+    --color-amber-700: #a8581c;
+    --color-amber-800: #7e4214;
+    --color-amber-900: #552c0d;
+
+    /* ═══ COPPER (deep gradient accents) ═══ */
+    --color-copper-50:  #fceeea;
+    --color-copper-100: #f8d1c6;
+    --color-copper-200: #f0a08b;
+    --color-copper-300: #e5704f;
+    --color-copper-400: #dc5333;
+    --color-copper-500: #D85D29;  /* Burnt Orange — HOVER */
+    --color-copper-600: #C33A1F;  /* Copper — DEEP ACCENT */
+    --color-copper-700: #982815;  /* Deep Copper — SHADOW */
+    --color-copper-800: #6d1a0d;
+    --color-copper-900: #431006;
+
+    /* ═══ CHARCOAL (surfaces) ═══ */
+    --color-charcoal-50:  #eceae7;
+    --color-charcoal-100: #d5d3cf;
+    --color-charcoal-200: #b3b1ad;
+    --color-charcoal-300: #918f8b;
+    --color-charcoal-400: #6a6866;
+    --color-charcoal-500: #41403F;  /* Charcoal — main dark */
+    --color-charcoal-600: #383736;
+    --color-charcoal-700: #2e2d2c;
+    --color-charcoal-800: #232222;
+    --color-charcoal-900: #161515;
+
+    /* ═══ WARM WHITE / CREAM ═══ */
+    --color-cream-50:  #FCFAF6;
+    --color-cream-100: #F4F0E8;   /* Warm White — light bg */
+    --color-cream-200: #e8e2d4;
+    --color-cream-300: #d6cec0;
+    --color-cream-400: #b8af9e;
+    --color-cream-500: #8f8875;
+
+    /* Fonts */
+    --font-display: "Archivo Black", sans-serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+
+    --tracking-tightest: -0.06em;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+    }
+    body {
+        @apply bg-charcoal-900 text-cream-100 font-sans antialiased;
+    }
+    h1, h2, h3, h4 {
+        @apply font-display tracking-tightest uppercase;
+    }
+}
+
+@layer components {
+
+    /* ═══ PRIMARY BUTTON — gold → amber gradient ═══ */
+    .btn-primary {
+        @apply inline-flex items-center gap-2 px-8 py-4
+               text-charcoal-900
+               font-semibold uppercase tracking-widest text-sm
+               transition-all duration-300;
+        background: linear-gradient(135deg, #EFC967 0%, #ECB143 45%, #E48633 100%);
+        box-shadow:
+            0 1px 0 rgba(255,255,255,0.25) inset,
+            0 8px 28px -10px rgba(236,177,67,0.55);
+    }
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #F4D47C 0%, #EFC967 45%, #EA8F40 100%);
+        box-shadow:
+            0 1px 0 rgba(255,255,255,0.35) inset,
+            0 12px 36px -10px rgba(239,201,103,0.7);
+    }
+
+    /* ═══ OUTLINE BUTTON — gold hairline, hover glows copper ═══ */
+    .btn-outline {
+        @apply inline-flex items-center gap-2 px-8 py-4
+               text-cream-100
+               font-semibold uppercase tracking-widest text-sm
+               transition-all duration-300;
+        border: 1px solid rgba(239, 201, 103, 0.35);
+    }
+    .btn-outline:hover {
+        border-color: #ECB143;
+        color: #EFC967;
+        background: linear-gradient(135deg, rgba(236,177,67,0.08) 0%, rgba(228,134,51,0.04) 100%);
+        box-shadow: 0 0 24px -6px rgba(236,177,67,0.4);
+    }
+
+    /* ═══ SECTION LABEL — gold gradient text ═══ */
+    .section-label {
+        @apply text-xs tracking-[0.3em] uppercase font-semibold;
+        background: linear-gradient(90deg, #EFC967 0%, #E48633 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* ═══ GRADIENT TEXT — the signature brand gradient ═══ */
+    .text-gradient-gold {
+        background: linear-gradient(135deg, #EFC967 0%, #ECB143 40%, #E48633 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .text-gradient-copper {
+        background: linear-gradient(135deg, #E48633 0%, #D85D29 50%, #C33A1F 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .text-gradient-ember {
+        background: linear-gradient(135deg, #EFC967 0%, #E48633 35%, #D85D29 70%, #C33A1F 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* ═══ CONTAINER ═══ */
+    .container-x {
+        @apply max-w-7xl mx-auto px-6 md:px-10 lg:px-16;
+    }
+
+    /* ═══ HAIRLINE DIVIDER — gold fade ═══ */
+    .hairline-gold {
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(236,177,67,0.5) 50%, transparent 100%);
+    }
+
+    /* ═══ CARD — subtle gold-tinted glass ═══ */
+    .card-elegant {
+        @apply relative transition-all duration-500;
+        background: linear-gradient(180deg, rgba(65,64,63,0.35) 0%, rgba(35,34,34,0.35) 100%);
+        border: 1px solid rgba(239, 201, 103, 0.08);
+        backdrop-filter: blur(8px);
+    }
+    .card-elegant:hover {
+        border-color: rgba(236, 177, 67, 0.3);
+        background: linear-gradient(180deg, rgba(236,177,67,0.06) 0%, rgba(228,134,51,0.02) 100%);
+        box-shadow: 0 8px 32px -12px rgba(236,177,67,0.25);
+    }
+
+    /* ═══ SECTION WRAPPER — dark → warm dark ═══ */
+    .bg-section-dark {
+        background: linear-gradient(180deg, #161515 0%, #232222 50%, #161515 100%);
+    }
+    .bg-section-warm {
+        background: linear-gradient(180deg, #1c1a19 0%, #232121 50%, #161515 100%);
+    }
+}
+
+@layer utilities {
+    .text-balance { text-wrap: balance; }
+
+    /* ═══ HERO GLOW — layered copper + gold radials ═══ */
+    .glow-hero {
+        background:
+            radial-gradient(ellipse 80% 60% at 50% 100%, rgba(236,177,67,0.18) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 40% at 20% 30%, rgba(195,58,31,0.12) 0%, transparent 70%);
+    }
+
+    /* ═══ SOFT GOLD GLOW — for CTA sections ═══ */
+    .glow-gold {
+        background: radial-gradient(ellipse at center, rgba(236,177,67,0.20) 0%, transparent 65%);
+    }
+
+    /* ═══ COPPER GLOW — for darker accents ═══ */
+    .glow-copper {
+        background: radial-gradient(ellipse at center, rgba(195,58,31,0.22) 0%, transparent 65%);
+    }
 }
