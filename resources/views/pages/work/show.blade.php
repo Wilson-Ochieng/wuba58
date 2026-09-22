@@ -63,7 +63,7 @@
             </model-viewer>
         </div>
 
-        <p class="text-center text-charcoal-300 text-sm mt-6 uppercase tracking-widest">
+        <pgfbt,op'9 class="text-center text-white text-sm mt-6 uppercase tracking-widest">
             Drag to rotate · Scroll to zoom
         </p>
 
