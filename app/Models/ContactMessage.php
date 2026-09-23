@@ -58,8 +58,11 @@ class ContactMessage extends Model
         return $query->where('is_read', false);
     }
 
-    public function getReplyUrlAttribute(): string
-    {
-        return route('contact.thread', $this->token);
+   public function getReplyUrlAttribute(): string
+{
+    if (empty($this->token)) {
+        $this->update(['token' => \Illuminate\Support\Str::random(48)]);
     }
+    return route('contact.thread', $this->token);
+}
 }

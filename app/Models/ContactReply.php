@@ -1,40 +1,34 @@
 <?php
 
-namespace App\Mail;
+namespace App\Models;
 
-use App\Models\ContactMessage;
-use App\Models\ContactReply;
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Database\Eloquent\Model;
 
-class ContactReplyFromUser extends Mailable
+class ContactReply extends Model
 {
-    use Queueable, SerializesModels;
+    protected $fillable = [
+        'contact_message_id', 'direction', 'body',
+        'subject', 'read_by_admin', 'read_by_user', 'emailed_at',
+    ];
 
-    public function __construct(
-        public ContactMessage $message,
-        public ContactReply $reply,
-    ) {}
+    protected $casts = [
+        'read_by_admin' => 'boolean',
+        'read_by_user'  => 'boolean',
+        'emailed_at'    => 'datetime',
+    ];
 
-    public function envelope(): Envelope
+    public function contactMessage()
     {
-        return new Envelope(
-            subject: 'New reply from ' . $this->message->name,
-            replyTo: $this->message->email,
-        );
+        return $this->belongsTo(ContactMessage::class);
     }
 
-    public function content(): Content
+    public function scopeOutbound($query)
     {
-        return new Content(
-            view: 'emails.contact-reply-from-user',
-            with: [
-                'msg' => $this->message,
-                'reply' => $this->reply,
-            ],
-        );
+        return $query->where('direction', 'outbound');
+    }
+
+    public function scopeInbound($query)
+    {
+        return $query->where('direction', 'inbound');
     }
 }
