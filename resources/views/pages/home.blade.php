@@ -28,9 +28,32 @@
 {{-- 01 — Introduction --}}
 <x-section>
     <x-section-heading label="01 — Introduction" title="See the city before it's built." size="xl">
-        WUBA 58 City Models transforms architectural drawings and development concepts
-        into highly detailed physical models and visual presentations.
+        {{ \App\Models\Setting::get('intro.body') }}
     </x-section-heading>
+
+    <div class="mt-10 max-w-3xl text-charcoal-300 leading-relaxed">
+        {{ \App\Models\Setting::get('intro.body_2') }}
+    </div>
+
+    {{-- Stats row --}}
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-charcoal-700 pt-10">
+        <div>
+            <div class="text-gradient-gold font-display text-5xl md:text-6xl leading-none mb-2">18</div>
+            <div class="text-charcoal-300 text-xs uppercase tracking-widest">Years of Craft</div>
+        </div>
+        <div>
+            <div class="text-gradient-gold font-display text-5xl md:text-6xl leading-none mb-2">3K+</div>
+            <div class="text-charcoal-300 text-xs uppercase tracking-widest">Projects Worldwide</div>
+        </div>
+        <div>
+            <div class="text-gradient-gold font-display text-5xl md:text-6xl leading-none mb-2">3</div>
+            <div class="text-charcoal-300 text-xs uppercase tracking-widest">Global Studios</div>
+        </div>
+        <div>
+            <div class="text-gradient-gold font-display text-5xl md:text-6xl leading-none mb-2">100s</div>
+            <div class="text-charcoal-300 text-xs uppercase tracking-widest">Developer Partners</div>
+        </div>
+    </div>
 </x-section>
 
 {{-- 02 — What We Create --}}
