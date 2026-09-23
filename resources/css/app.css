@@ -173,6 +173,41 @@
     .bg-section-warm {
         background: linear-gradient(180deg, #1c1a19 0%, #232121 50%, #161515 100%);
     }
+
+    /* Pagination */
+.pagination, nav[role="navigation"] {
+    @apply flex items-center justify-center gap-1;
+}
+
+/* Livewire pagination wrapper */
+nav[aria-label="Pagination"] > div:first-child {
+    @apply hidden; /* hide the "Showing X to Y of Z" duplicate */
+}
+
+nav[aria-label="Pagination"] span[aria-current="page"] > span,
+nav[aria-label="Pagination"] a,
+nav[aria-label="Pagination"] span[aria-disabled="true"] > span {
+    @apply inline-flex items-center justify-center min-w-[2.5rem] h-10 px-3 text-xs uppercase tracking-widest transition-colors;
+    border: 1px solid rgba(239, 201, 103, 0.15);
+}
+
+nav[aria-label="Pagination"] a {
+    @apply text-charcoal-200 hover:text-gold-400;
+}
+nav[aria-label="Pagination"] a:hover {
+    border-color: rgba(236, 177, 67, 0.5);
+}
+
+nav[aria-label="Pagination"] span[aria-current="page"] > span {
+    background: linear-gradient(135deg, #EFC967 0%, #E48633 100%);
+    color: #161515 !important;
+    border-color: transparent;
+    font-weight: 600;
+}
+
+nav[aria-label="Pagination"] span[aria-disabled="true"] > span {
+    @apply text-charcoal-500 cursor-not-allowed;
+}
 }
 
 @layer utilities {

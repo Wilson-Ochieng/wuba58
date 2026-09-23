@@ -1,6 +1,6 @@
 @props(['project'])
 
-<a href="{{ route('work.show', $project->slug) }}" class="group block">
+<a href="/work/{{ $project->slug }}" class="group block">
     <div class="aspect-[4/3] overflow-hidden bg-charcoal-800 relative">
         @if ($project->hasMedia('hero'))
             <img src="{{ $project->getFirstMediaUrl('hero', 'thumb') }}"
@@ -21,6 +21,17 @@
         <div class="absolute top-4 left-4 px-3 py-1.5 text-xs uppercase tracking-widest text-cream-100 backdrop-blur-sm"
              style="background: rgba(22,21,21,0.6); border: 1px solid rgba(239,201,103,0.2);">
             {{ ucfirst(str_replace('_', ' ', $project->category)) }}
+        </div>
+
+        {{-- View Project button — pushed lower --}}
+        <div class="absolute inset-x-0 bottom-0 top-auto flex items-end justify-center pb-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <span class="inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-semibold text-charcoal-900"
+                  style="background: linear-gradient(135deg, #EFC967 0%, #ECB143 50%, #E48633 100%); box-shadow: 0 8px 24px -8px rgba(236,177,67,0.6);">
+                View Project
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+            </span>
         </div>
     </div>
 
