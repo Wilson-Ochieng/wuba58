@@ -23,24 +23,24 @@ class SettingResource extends Resource
             Forms\Components\TextInput::make('key')->required()->unique(ignoreRecord: true)
                 ->helperText('e.g. contact.whatsapp, contact.phone, contact.email, hero.headline'),
             Forms\Components\Select::make('group')->options([
-                'general'   => 'General',
-                'contact'   => 'Contact',
-                'homepage'  => 'Homepage',
-                'social'    => 'Social',
+                'general' => 'General',
+                'contact' => 'Contact',
+                'homepage' => 'Homepage',
+                'social' => 'Social',
             ])->default('general')->native(false),
             Forms\Components\Select::make('type')->options([
-                'text'     => 'Text',
+                'text' => 'Text',
                 'textarea' => 'Textarea',
-                'boolean'  => 'Boolean',
-                'image'    => 'Image URL',
-                'url'      => 'URL',
+                'boolean' => 'Boolean',
+                'image' => 'Image URL',
+                'url' => 'URL',
             ])->default('text')->native(false),
 
             Forms\Components\Textarea::make('value')
                 ->rows(4)->columnSpanFull()
-                ->visible(fn (Forms\Get $get) => in_array($get('type'), ['textarea', 'text', 'url', 'image'])),
+                ->visible(fn(Forms\Get $get) => in_array($get('type'), ['textarea', 'text', 'url', 'image'])),
             Forms\Components\Toggle::make('value')
-                ->visible(fn (Forms\Get $get) => $get('type') === 'boolean'),
+                ->visible(fn(Forms\Get $get) => $get('type') === 'boolean'),
         ])->columns(2);
     }
 
@@ -52,21 +52,25 @@ class SettingResource extends Resource
             Tables\Columns\TextColumn::make('value')->limit(50)->toggleable(),
             Tables\Columns\TextColumn::make('updated_at')->since()->toggleable(),
         ])
-        ->defaultSort('group')
-        ->filters([Tables\Filters\SelectFilter::make('group')->options([
-            'general' => 'General', 'contact' => 'Contact',
-            'homepage' => 'Homepage', 'social' => 'Social',
-        ])])
-        ->actions([Tables\Actions\EditAction::make()])
-        ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
+            ->defaultSort('group')
+            ->filters([
+                Tables\Filters\SelectFilter::make('group')->options([
+                    'general' => 'General',
+                    'contact' => 'Contact',
+                    'homepage' => 'Homepage',
+                    'social' => 'Social',
+                ])
+            ])
+            ->actions([Tables\Actions\EditAction::make()])
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListSettings::route('/'),
+            'index' => Pages\ListSettings::route('/'),
             'create' => Pages\CreateSetting::route('/create'),
-            'edit'   => Pages\EditSetting::route('/{record}/edit'),
+            'edit' => Pages\EditSetting::route('/{record}/edit'),
         ];
     }
 }

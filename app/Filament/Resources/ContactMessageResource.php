@@ -65,15 +65,15 @@ class ContactMessageResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->weight('bold')
-                    ->description(fn (ContactMessage $r) => $r->email),
+                    ->description(fn(ContactMessage $r) => $r->email),
 
                 Tables\Columns\TextColumn::make('project_type')
                     ->badge()
-                    ->formatStateUsing(fn ($state) => $state ? ucfirst(str_replace('_', ' ', $state)) : '—'),
+                    ->formatStateUsing(fn($state) => $state ? ucfirst(str_replace('_', ' ', $state)) : '—'),
 
                 Tables\Columns\TextColumn::make('message')
                     ->limit(40)
-                    ->tooltip(fn ($record) => $record->message),
+                    ->tooltip(fn($record) => $record->message),
 
                 Tables\Columns\TextColumn::make('replies_count')
                     ->counts('replies')
@@ -85,7 +85,7 @@ class ContactMessageResource extends Resource
                     ->label('Last activity')
                     ->since()
                     ->sortable()
-                    ->default(fn ($record) => $record->created_at),
+                    ->default(fn($record) => $record->created_at),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
@@ -96,7 +96,7 @@ class ContactMessageResource extends Resource
                 Tables\Actions\Action::make('open')
                     ->label('Open conversation')
                     ->icon('heroicon-o-chat-bubble-left-right')
-                    ->url(fn (ContactMessage $r) => static::getUrl('view', ['record' => $r])),
+                    ->url(fn(ContactMessage $r) => static::getUrl('view', ['record' => $r])),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -109,7 +109,7 @@ class ContactMessageResource extends Resource
     {
         return [
             'index' => Pages\ListContactMessages::route('/'),
-            'view'  => Pages\ViewContactMessage::route('/{record}'),
+            'view' => Pages\ViewContactMessage::route('/{record}'),
         ];
     }
 

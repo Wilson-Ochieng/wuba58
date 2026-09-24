@@ -15,14 +15,24 @@ class Project extends Model implements HasMedia
     use HasFactory, SoftDeletes, InteractsWithMedia, HasSlug;
 
     protected $fillable = [
-        'title', 'slug', 'location', 'category', 'scale',
-        'client_name', 'year', 'excerpt', 'description',
-        'featured', 'published', 'order', 'published_at',
+        'title',
+        'slug',
+        'location',
+        'category',
+        'scale',
+        'client_name',
+        'year',
+        'excerpt',
+        'description',
+        'featured',
+        'published',
+        'order',
+        'published_at',
     ];
 
     protected $casts = [
-        'featured'     => 'boolean',
-        'published'    => 'boolean',
+        'featured' => 'boolean',
+        'published' => 'boolean',
         'published_at' => 'datetime',
     ];
 
@@ -56,10 +66,10 @@ class Project extends Model implements HasMedia
     {
         return $this->hasMany(ModelHotspot::class)->orderBy('order');
     }
-public function scopePublished($query)
-{
-    return $query->where('published', true);
-}
+    public function scopePublished($query)
+    {
+        return $query->where('published', true);
+    }
     public function scopeFeatured($query)
     {
         return $query->where('featured', true);

@@ -21,9 +21,9 @@
     @endif
 
     @if ($title)
-        <h2 class="{{ $sizeClass }} font-display tracking-tightest text-cream-100 leading-[1.05] text-balance">
-    {!! $title !!}
-</h2>
+                <h2 class="{{ $sizeClass }} font-display tracking-tightest text-cream-100 leading-[1.05] text-balance">
+            {!! $title !!}
+        </h2>
     @endif
 
     @if ($slot->isNotEmpty())

@@ -8,11 +8,11 @@
             <div class="flex flex-wrap gap-2 md:gap-3">
                 @php
                     $categories = [
-                        'all'         => 'All Work',
+                        'all' => 'All Work',
                         'residential' => 'Residential',
-                        'commercial'  => 'Commercial',
-                        'masterplan'  => 'Masterplan',
-                        'mixed_use'   => 'Mixed Use',
+                        'commercial' => 'Commercial',
+                        'masterplan' => 'Masterplan',
+                        'mixed_use' => 'Mixed Use',
                     ];
                 @endphp
 

@@ -15,7 +15,7 @@ class ProjectFilter extends Component
 
     protected $queryString = [
         'category' => ['except' => 'all'],
-        'search'   => ['except' => ''],
+        'search' => ['except' => ''],
     ];
 
     public function updating($field): void
@@ -52,9 +52,9 @@ class ProjectFilter extends Component
             $term = '%' . trim($this->search) . '%';
             $query->where(function ($q) use ($term) {
                 $q->where('title', 'like', $term)
-                  ->orWhere('location', 'like', $term)
-                  ->orWhere('client_name', 'like', $term)
-                  ->orWhere('excerpt', 'like', $term);
+                    ->orWhere('location', 'like', $term)
+                    ->orWhere('client_name', 'like', $term)
+                    ->orWhere('excerpt', 'like', $term);
             });
         }
 
@@ -62,16 +62,16 @@ class ProjectFilter extends Component
 
         // Counts per category (unfiltered, for the tab badges)
         $counts = [
-            'all'         => Project::published()->count(),
+            'all' => Project::published()->count(),
             'residential' => Project::published()->where('category', 'residential')->count(),
-            'commercial'  => Project::published()->where('category', 'commercial')->count(),
-            'masterplan'  => Project::published()->where('category', 'masterplan')->count(),
-            'mixed_use'   => Project::published()->where('category', 'mixed_use')->count(),
+            'commercial' => Project::published()->where('category', 'commercial')->count(),
+            'masterplan' => Project::published()->where('category', 'masterplan')->count(),
+            'mixed_use' => Project::published()->where('category', 'mixed_use')->count(),
         ];
 
         return view('livewire.project-filter', [
             'projects' => $projects,
-            'counts'   => $counts,
+            'counts' => $counts,
         ]);
     }
 }

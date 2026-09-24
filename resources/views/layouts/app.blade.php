@@ -40,13 +40,75 @@
                 <img src="{{ asset('img/logo.jpg') }}" alt="Wuba 58 City Models" class="h-10 md:h-12 w-auto">
             </a>
 
-            <nav class="hidden lg:flex items-center gap-5 text-sm uppercase tracking-widest">
-                <a href="/work"     class="hover:text-gold-400 transition">Work</a>
-                <a href="/services" class="hover:text-gold-400 transition">Services</a>
-                <a href="/about"    class="hover:text-gold-400 transition">About</a>
-                <a href="/process"  class="hover:text-gold-400 transition">Process</a>
-                <a href="/contact"  class="hover:text-gold-400 transition">Contact</a>
-            </nav>
+           <nav class="hidden lg:flex items-center gap-5 text-sm uppercase tracking-widest">
+
+    {{-- Work dropdown --}}
+   <nav class="hidden lg:flex items-center gap-5 text-sm uppercase tracking-widest">
+   <div
+    x-data="{
+        open: false,
+        timer: null,
+        show() { clearTimeout(this.timer); this.open = true; },
+        hide() { this.timer = setTimeout(() => { this.open = false; }, 200); }
+    }"
+    @mouseenter="show()"
+    @mouseleave="hide()"
+    @click.outside="open = false"
+    class="relative"
+>
+    <button
+        @click="open = !open"
+        type="button"
+        class="flex items-center gap-1.5 py-2 hover:text-gold-400 transition"
+        :class="open ? 'text-gold-400' : ''"
+    >
+        Work
+        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
+             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+    </button>
+
+    {{-- Invisible bridge — keeps hover alive across the gap --}}
+    <div
+        x-show="open"
+        x-cloak
+        class="absolute left-0 right-0 top-full h-4"
+    ></div>
+
+    <div
+        x-show="open"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 -translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2"
+        x-cloak
+        class="absolute left-0 top-full mt-4 min-w-[220px] py-2 z-50"
+        style="background: rgba(22,21,21,0.98); border: 1px solid rgba(236,177,67,0.15); backdrop-filter: blur(12px); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.8);"
+    >
+        <a href="/work" class="block px-5 py-3 hover:bg-charcoal-800 transition-colors text-cream-100 hover:text-gold-400 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+            Portfolio
+        </a>
+
+        <a href="/work/physical-models" class="block px-5 py-3 hover:bg-charcoal-800 transition-colors text-cream-100 hover:text-gold-400 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+            3D Physical Models
+        </a>
+
+        <a href="/work/360-tour" class="block px-5 py-3 hover:bg-charcoal-800 transition-colors text-cream-100 hover:text-gold-400 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+            360° Virtual Tour
+        </a>
+    </div>
+</div>
+
+    <a href="/services" class="hover:text-gold-400 transition">Services</a>
+    <a href="/about"    class="hover:text-gold-400 transition">About</a>
+    <a href="/process"  class="hover:text-gold-400 transition">Process</a>
+    <a href="/contact"  class="hover:text-gold-400 transition">Contact</a>
+</nav>
+
+    
 
             <a href="/contact" class="hidden lg:inline-flex btn-primary text-xs py-3 px-6">Start a Project</a>
 
@@ -60,14 +122,16 @@
 
         <div x-show="open" x-transition @click.outside="open = false"
              class="lg:hidden bg-charcoal-800 border-t border-charcoal-700">
-            <div class="container-x py-6 flex flex-col gap-5 text-sm uppercase tracking-widest">
-                <a href="/work"     class="hover:text-gold-400">Work</a>
-                <a href="/services" class="hover:text-gold-400">Services</a>
-                <a href="/about"    class="hover:text-gold-400">About</a>
-                <a href="/process"  class="hover:text-gold-400">Process</a>
-                <a href="/contact"  class="hover:text-gold-400">Contact</a>
-                <a href="/contact" class="btn-primary text-xs justify-center">Start a Project</a>
-            </div>
+           <div class="container-x py-6 flex flex-col gap-5 text-sm uppercase tracking-widest">
+    <a href="/work" class="hover:text-gold-400">Work — Portfolio</a>
+    <a href="/work/physical-models" class="hover:text-gold-400 pl-4 text-charcoal-300">3D Physical Models</a>
+    <a href="/work/360-tour" class="hover:text-gold-400 pl-4 text-charcoal-300">360° Virtual Tour</a>
+    <a href="/services" class="hover:text-gold-400">Services</a>
+    <a href="/about"    class="hover:text-gold-400">About</a>
+    <a href="/process"  class="hover:text-gold-400">Process</a>
+    <a href="/contact"  class="hover:text-gold-400">Contact</a>
+    <a href="/contact" class="btn-primary text-xs justify-center">Start a Project</a>
+</div>
         </div>
     </header>
 

@@ -31,13 +31,13 @@ class ContactThreadController extends Controller
 
         $reply = ContactReply::create([
             'contact_message_id' => $message->id,
-            'direction'          => 'inbound',
-            'body'               => $validated['body'],
-            'read_by_admin'      => false,
+            'direction' => 'inbound',
+            'body' => $validated['body'],
+            'read_by_admin' => false,
         ]);
 
         $message->update([
-            'is_read'          => false, // mark thread unread again so admin notices
+            'is_read' => false, // mark thread unread again so admin notices
             'last_activity_at' => now(),
         ]);
 

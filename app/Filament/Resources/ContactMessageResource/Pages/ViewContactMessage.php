@@ -40,10 +40,10 @@ class ViewContactMessage extends ViewRecord
 
         $reply = ContactReply::create([
             'contact_message_id' => $msg->id,
-            'direction'          => 'outbound',
-            'body'               => $this->replyBody,
-            'read_by_admin'      => true,
-            'emailed_at'         => now(),
+            'direction' => 'outbound',
+            'body' => $this->replyBody,
+            'read_by_admin' => true,
+            'emailed_at' => now(),
         ]);
 
         try {

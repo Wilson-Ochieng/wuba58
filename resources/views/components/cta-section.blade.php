@@ -1,7 +1,7 @@
 @php
     $whatsapp = preg_replace('/\D/', '', \App\Models\Setting::get('contact.whatsapp'));
-    $phone    = \App\Models\Setting::get('contact.phone');
-    $email    = \App\Models\Setting::get('contact.email');
+    $phone = \App\Models\Setting::get('contact.phone');
+    $email = \App\Models\Setting::get('contact.email');
 @endphp
 
 <section class="relative py-32 md:py-48 overflow-hidden">
