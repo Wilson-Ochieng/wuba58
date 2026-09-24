@@ -31,45 +31,129 @@
          style="background-image: url('/img/noise.svg');"></div>
 
     {{-- HEADER --}}
-    <header x-data="{ scrolled: false, open: false }"
-            @scroll.window="scrolled = window.scrollY > 40"
-            :class="scrolled ? 'bg-charcoal-900/95 backdrop-blur-md border-b border-charcoal-700' : 'bg-transparent'"
-            class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-        <div class="container-x flex items-center justify-between h-20 md:h-24">
-            <a href="/" class="flex items-center gap-3">
-                <img src="{{ asset('img/logo.jpg') }}" alt="Wuba 58 City Models" class="h-10 md:h-12 w-auto">
-            </a>
+   <header x-data="{ scrolled: false, open: false }"
+        @scroll.window="scrolled = window.scrollY > 40"
+        :class="scrolled ? 'bg-charcoal-900/95 backdrop-blur-md border-b border-charcoal-700' : 'bg-transparent'"
+        class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <div class="container-x flex items-center justify-between h-20 md:h-24">
 
-            <nav class="hidden lg:flex items-center gap-5 text-sm uppercase tracking-widest">
-                <a href="/work"     class="hover:text-gold-400 transition">Work</a>
-                <a href="/services" class="hover:text-gold-400 transition">Services</a>
-                <a href="/about"    class="hover:text-gold-400 transition">About</a>
-                <a href="/process"  class="hover:text-gold-400 transition">Process</a>
-                <a href="/contact"  class="hover:text-gold-400 transition">Contact</a>
-            </nav>
+        {{-- Logo --}}
+        <a href="/" class="flex items-center gap-3 shrink-0">
+            <img src="{{ asset('img/logo.jpg') }}" alt="Wuba 58 City Models" class="h-10 md:h-12 w-auto">
+        </a>
 
-            <a href="/contact" class="hidden lg:inline-flex btn-primary text-xs py-3 px-6">Start a Project</a>
+        {{-- Desktop nav --}}
+        <nav class="hidden lg:flex items-center gap-5 text-sm uppercase tracking-widest">
 
-            <button @click="open = !open" class="lg:hidden text-cream-100" aria-label="Toggle menu">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
-        </div>
+            {{-- Work dropdown --}}
+            <div
+                x-data="{
+                    open: false,
+                    timer: null,
+                    show() { clearTimeout(this.timer); this.open = true; },
+                    hide() { this.timer = setTimeout(() => { this.open = false; }, 200); }
+                }"
+                @mouseenter="show()"
+                @mouseleave="hide()"
+                @click.outside="open = false"
+                class="relative"
+            >
+                <button
+                    @click="open = !open"
+                    type="button"
+                    class="flex items-center gap-1.5 py-2 hover:text-gold-400 transition"
+                    :class="open ? 'text-gold-400' : ''"
+                >
+                    Work
+                    <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
 
-        <div x-show="open" x-transition @click.outside="open = false"
-             class="lg:hidden bg-charcoal-800 border-t border-charcoal-700">
-            <div class="container-x py-6 flex flex-col gap-5 text-sm uppercase tracking-widest">
-                <a href="/work"     class="hover:text-gold-400">Work</a>
-                <a href="/services" class="hover:text-gold-400">Services</a>
-                <a href="/about"    class="hover:text-gold-400">About</a>
-                <a href="/process"  class="hover:text-gold-400">Process</a>
-                <a href="/contact"  class="hover:text-gold-400">Contact</a>
-                <a href="/contact" class="btn-primary text-xs justify-center">Start a Project</a>
+                {{-- Invisible bridge --}}
+                <div x-show="open" x-cloak class="absolute left-0 right-0 top-full h-4"></div>
+
+                <div
+                    x-show="open"
+                    x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 -translate-y-2"
+                    x-transition:enter-end="opacity-100 translate-y-0"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100 translate-y-0"
+                    x-transition:leave-end="opacity-0 -translate-y-2"
+                    x-cloak
+                    class="absolute left-0 top-full mt-4 min-w-[220px] py-2 z-50"
+                    style="background: rgba(22,21,21,0.98); border: 1px solid rgba(236,177,67,0.15); backdrop-filter: blur(12px); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.8);"
+                >
+                    <a href="/work" class="block px-5 py-3 hover:bg-charcoal-800 transition-colors text-cream-100 hover:text-gold-400 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+                        Portfolio
+                    </a>
+                    <a href="/work/physical-models" class="block px-5 py-3 hover:bg-charcoal-800 transition-colors text-cream-100 hover:text-gold-400 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+                        3D Physical Models
+                    </a>
+                    <a href="/work/360-tour" class="block px-5 py-3 hover:bg-charcoal-800 transition-colors text-cream-100 hover:text-gold-400 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+                        360° Virtual Tour
+                    </a>
+                </div>
             </div>
+
+            <a href="/services" class="hover:text-gold-400 transition">Services</a>
+            <a href="/about"    class="hover:text-gold-400 transition">About</a>
+            <a href="/process"  class="hover:text-gold-400 transition">Process</a>
+            <a href="/contact"  class="hover:text-gold-400 transition">Contact</a>
+        </nav>
+
+        {{-- Desktop CTA --}}
+        <a href="/contact" class="hidden lg:inline-flex btn-primary text-xs py-3 px-6 shrink-0">
+            Start a Project
+        </a>
+
+        {{-- Mobile hamburger --}}
+        <button
+            @click="open = !open"
+            type="button"
+            class="lg:hidden flex items-center justify-center w-11 h-11 -mr-2 text-cream-100 hover:text-gold-400 transition-colors"
+            aria-label="Toggle menu"
+            :aria-expanded="open"
+        >
+            {{-- Hamburger icon (visible when closed) --}}
+            <svg x-show="!open" x-cloak class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+
+            {{-- Close (X) icon (visible when open) --}}
+            <svg x-show="open" x-cloak class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    </div>
+
+    {{-- Mobile menu --}}
+    <div x-show="open"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 -translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 -translate-y-2"
+         x-cloak
+         class="lg:hidden bg-charcoal-800 border-t border-charcoal-700">
+        <div class="container-x py-6 flex flex-col gap-4 text-sm uppercase tracking-widest">
+            <a href="/work" class="hover:text-gold-400 transition py-1">Work — Portfolio</a>
+            <a href="/work/physical-models" class="hover:text-gold-400 transition py-1 pl-4 text-charcoal-300 text-xs">3D Physical Models</a>
+            <a href="/work/360-tour" class="hover:text-gold-400 transition py-1 pl-4 text-charcoal-300 text-xs">360° Virtual Tour</a>
+            <div class="h-px my-1" style="background: linear-gradient(90deg, transparent, rgba(236,177,67,0.3), transparent);"></div>
+            <a href="/services" class="hover:text-gold-400 transition py-1">Services</a>
+            <a href="/about"    class="hover:text-gold-400 transition py-1">About</a>
+            <a href="/process"  class="hover:text-gold-400 transition py-1">Process</a>
+            <a href="/contact"  class="hover:text-gold-400 transition py-1">Contact</a>
+            <a href="/contact" class="btn-primary text-xs justify-center mt-3">Start a Project</a>
         </div>
-    </header>
+    </div>
+</header>
 
     <main class="min-h-screen">
         @yield('content')

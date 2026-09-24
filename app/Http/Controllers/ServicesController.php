@@ -11,7 +11,7 @@ class ServicesController extends Controller
     {
         return view('pages.services', [
             'services' => Service::where('published', true)->orderBy('order')->get(),
-            'process'  => ProcessStep::orderBy('order')->get(),
+            'process' => ProcessStep::orderBy('order')->get(),
         ]);
     }
 }

@@ -17,7 +17,8 @@ class ContactReplyFromUser extends Mailable
     public function __construct(
         public ContactMessage $message,
         public ContactReply $reply,
-    ) {}
+    ) {
+    }
 
     public function envelope(): Envelope
     {

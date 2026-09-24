@@ -33,18 +33,18 @@ class ProcessStepResource extends Resource
             Tables\Columns\TextColumn::make('step_number')->sortable(),
             Tables\Columns\TextColumn::make('title')->searchable(),
         ])
-        ->defaultSort('order')
-        ->reorderable('order')
-        ->actions([Tables\Actions\EditAction::make()])
-        ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
+            ->defaultSort('order')
+            ->reorderable('order')
+            ->actions([Tables\Actions\EditAction::make()])
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListProcessSteps::route('/'),
+            'index' => Pages\ListProcessSteps::route('/'),
             'create' => Pages\CreateProcessStep::route('/create'),
-            'edit'   => Pages\EditProcessStep::route('/{record}/edit'),
+            'edit' => Pages\EditProcessStep::route('/{record}/edit'),
         ];
     }
 }

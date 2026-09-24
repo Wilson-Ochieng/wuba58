@@ -11,14 +11,23 @@ class ContactMessage extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'token', 'name', 'email', 'phone', 'company', 'project_type',
-        'message', 'ip_address', 'user_agent',
-        'is_read', 'read_at', 'last_activity_at',
+        'token',
+        'name',
+        'email',
+        'phone',
+        'company',
+        'project_type',
+        'message',
+        'ip_address',
+        'user_agent',
+        'is_read',
+        'read_at',
+        'last_activity_at',
     ];
 
     protected $casts = [
-        'is_read'          => 'boolean',
-        'read_at'          => 'datetime',
+        'is_read' => 'boolean',
+        'read_at' => 'datetime',
         'last_activity_at' => 'datetime',
     ];
 
@@ -38,7 +47,7 @@ class ContactMessage extends Model
 
     public function markAsRead(): void
     {
-        if (! $this->is_read) {
+        if (!$this->is_read) {
             $this->update(['is_read' => true, 'read_at' => now()]);
         }
     }
@@ -58,11 +67,11 @@ class ContactMessage extends Model
         return $query->where('is_read', false);
     }
 
-   public function getReplyUrlAttribute(): string
-{
-    if (empty($this->token)) {
-        $this->update(['token' => \Illuminate\Support\Str::random(48)]);
+    public function getReplyUrlAttribute(): string
+    {
+        if (empty($this->token)) {
+            $this->update(['token' => \Illuminate\Support\Str::random(48)]);
+        }
+        return route('contact.thread', $this->token);
     }
-    return route('contact.thread', $this->token);
-}
 }

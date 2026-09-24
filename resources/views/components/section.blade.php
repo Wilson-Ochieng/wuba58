@@ -2,6 +2,7 @@
     'variant' => 'default',   // default | dark | warm | none
     'padding' => 'md',        // sm | md | lg
     'id' => null,
+    'reveal' => 'up',         // up | down | left | right | scale | fade | none
 ])
 
 @php
@@ -19,7 +20,11 @@
     };
 @endphp
 
-<section @if($id) id="{{ $id }}" @endif class="{{ $paddingClass }} {{ $bgClass }}">
+<section
+    @if($id) id="{{ $id }}" @endif
+    @if($reveal !== 'none') data-reveal="{{ $reveal }}" @endif
+    class="{{ $paddingClass }} {{ $bgClass }}"
+>
     <div class="container-x">
         {{ $slot }}
     </div>

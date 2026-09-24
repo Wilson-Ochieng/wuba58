@@ -7,10 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class ModelHotspot extends Model
 {
     protected $fillable = [
-        'project_id', 'label',
-        'position_x', 'position_y', 'position_z',
-        'normal_x', 'normal_y', 'normal_z',
-        'description', 'color', 'order',
+        'project_id',
+        'label',
+        'position_x',
+        'position_y',
+        'position_z',
+        'normal_x',
+        'normal_y',
+        'normal_z',
+        'description',
+        'color',
+        'order',
     ];
 
     public function project()

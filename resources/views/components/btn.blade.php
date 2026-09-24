@@ -17,7 +17,7 @@
     $variants = [
         'primary' => 'btn-primary',
         'outline' => 'btn-outline',
-        'ghost'   => 'text-cream-100 hover:text-gold-400',
+        'ghost' => 'text-cream-100 hover:text-gold-400',
     ];
 
     $classes = $base . ' ' . ($sizes[$size] ?? $sizes['md']) . ' ' . ($variants[$variant] ?? $variants['primary']);

@@ -30,7 +30,7 @@ class ProjectResource extends Resource
                         ->required()
                         ->maxLength(255)
                         ->live(onBlur: true)
-                        ->afterStateUpdated(fn ($state, Forms\Set $set) =>
+                        ->afterStateUpdated(fn($state, Forms\Set $set) =>
                             $set('slug', \Str::slug($state))),
 
                     Forms\Components\TextInput::make('slug')
@@ -41,9 +41,9 @@ class ProjectResource extends Resource
                     Forms\Components\Select::make('category')
                         ->options([
                             'residential' => 'Residential',
-                            'commercial'  => 'Commercial',
-                            'masterplan'  => 'Masterplan',
-                            'mixed_use'   => 'Mixed Use',
+                            'commercial' => 'Commercial',
+                            'masterplan' => 'Masterplan',
+                            'mixed_use' => 'Mixed Use',
                         ])
                         ->required()
                         ->native(false),
@@ -81,12 +81,12 @@ class ProjectResource extends Resource
                     Forms\Components\SpatieMediaLibraryFileUpload::make('video')
                         ->collection('video')->acceptedFileTypes(['video/mp4', 'video/webm']),
 
-                 Forms\Components\SpatieMediaLibraryFileUpload::make('model')
-    ->collection('model')
-    ->label('3D Model (.glb)')
-    ->helperText('Upload a .glb file (Draco-compressed recommended). Max 100MB.')
-    ->maxSize(102400)   // 100MB in KB
-    ->rules(['file', 'mimes:glb,gltf,bin']) ,
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('model')
+                        ->collection('model')
+                        ->label('3D Model (.glb)')
+                        ->helperText('Upload a .glb file (Draco-compressed recommended). Max 100MB.')
+                        ->maxSize(102400)   // 100MB in KB
+                        ->rules(['file', 'mimes:glb,gltf,bin']),
 
                     Forms\Components\SpatieMediaLibraryFileUpload::make('panorama')
                         ->collection('panorama')->image()->multiple(),
@@ -113,7 +113,7 @@ class ProjectResource extends Resource
                         ])
                         ->columns(2)
                         ->collapsible()
-                        ->itemLabel(fn (array $state): ?string => $state['label'] ?? null)
+                        ->itemLabel(fn(array $state): ?string => $state['label'] ?? null)
                         ->defaultItems(0)
                         ->reorderable()
                         ->columnSpanFull(),
@@ -136,7 +136,7 @@ class ProjectResource extends Resource
                         'primary' => 'residential',
                         'success' => 'commercial',
                         'warning' => 'masterplan',
-                        'danger'  => 'mixed_use',
+                        'danger' => 'mixed_use',
                     ]),
                 Tables\Columns\IconColumn::make('featured')->boolean(),
                 Tables\Columns\IconColumn::make('published')->boolean(),
@@ -148,9 +148,9 @@ class ProjectResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('category')->options([
                     'residential' => 'Residential',
-                    'commercial'  => 'Commercial',
-                    'masterplan'  => 'Masterplan',
-                    'mixed_use'   => 'Mixed Use',
+                    'commercial' => 'Commercial',
+                    'masterplan' => 'Masterplan',
+                    'mixed_use' => 'Mixed Use',
                 ]),
                 Tables\Filters\TernaryFilter::make('featured'),
                 Tables\Filters\TernaryFilter::make('published'),
@@ -172,9 +172,9 @@ class ProjectResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListProjects::route('/'),
+            'index' => Pages\ListProjects::route('/'),
             'create' => Pages\CreateProject::route('/create'),
-            'edit'   => Pages\EditProject::route('/{record}/edit'),
+            'edit' => Pages\EditProject::route('/{record}/edit'),
         ];
     }
 

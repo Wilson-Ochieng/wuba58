@@ -21,7 +21,7 @@ class ServiceResource extends Resource
     {
         return $form->schema([
             Forms\Components\TextInput::make('title')->required()->live(onBlur: true)
-                ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('slug', \Str::slug($state))),
+                ->afterStateUpdated(fn($state, Forms\Set $set) => $set('slug', \Str::slug($state))),
             Forms\Components\TextInput::make('slug')->required()->unique(ignoreRecord: true),
             Forms\Components\Textarea::make('description')->rows(4)->columnSpanFull(),
             Forms\Components\TextInput::make('icon')->placeholder('heroicon-o-cube')->helperText('Heroicon name'),
@@ -38,18 +38,18 @@ class ServiceResource extends Resource
             Tables\Columns\TextColumn::make('title')->searchable(),
             Tables\Columns\IconColumn::make('published')->boolean(),
         ])
-        ->defaultSort('order')
-        ->reorderable('order')
-        ->actions([Tables\Actions\EditAction::make()])
-        ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
+            ->defaultSort('order')
+            ->reorderable('order')
+            ->actions([Tables\Actions\EditAction::make()])
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListServices::route('/'),
+            'index' => Pages\ListServices::route('/'),
             'create' => Pages\CreateService::route('/create'),
-            'edit'   => Pages\EditService::route('/{record}/edit'),
+            'edit' => Pages\EditService::route('/{record}/edit'),
         ];
     }
 }
