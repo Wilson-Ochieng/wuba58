@@ -29,3 +29,9 @@ Route::get('/work/physical-models', [PhysicalModelsController::class, 'index'])-
 Route::get('/work/{slug}', [WorkController::class, 'show'])
     ->where('slug', '[a-z][a-z0-9-]*')   // extra safety: slug must start with a letter
     ->name('work.show');
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'ok',
+        'time' => now()->toIso8601String(),
+    ]);
+});
