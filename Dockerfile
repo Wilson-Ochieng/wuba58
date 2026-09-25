@@ -51,13 +51,15 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Install Node 20, build frontend, clean up
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install \
-    && npm run build \
-    && rm -rf node_modules \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN echo "=== NODE INSTALL START ===" && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    echo "=== NODE VERSION ===" && node --version && \
+    echo "=== NPM INSTALL START ===" && npm install && \
+    echo "=== NPM BUILD START ===" && npm run build && \
+    echo "=== BUILD OUTPUT ===" && ls -la public/build/ && \
+    echo "=== BUILD DONE ===" && \
+    rm -rf node_modules
 
 # Permissions
 RUN chown -R www-data:www-data /var/www/html/storage \
