@@ -1,20 +1,10 @@
 services:
   - type: web
     name: wuba58
-    runtime: php
+    env: docker
     plan: free
-    region: frankfurt    # closest to Kenya
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      npm install
-      npm run build
-      php artisan config:clear
-      php artisan route:clear
-      php artisan view:clear
-    startCommand: |
-      php artisan migrate --force
-      php artisan storage:link || true
-      php artisan serve --host=0.0.0.0 --port=$PORT
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: APP_ENV
         value: production
@@ -23,7 +13,7 @@ services:
       - key: APP_KEY
         generateValue: true
       - key: APP_URL
-        sync: false        # you'll fill this in after first deploy
+        sync: false
       - key: APP_TIMEZONE
         value: Africa/Nairobi
       - key: LOG_CHANNEL
