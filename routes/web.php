@@ -35,3 +35,25 @@ Route::get('/health', function () {
         'time' => now()->toIso8601String(),
     ]);
 });
+// TEMPORARY — remove after use
+Route::get('/run-seeder-2026', function () {
+    if (request('key') !== 'wuba58-seed') {
+        abort(404);
+    }
+
+    $output = '';
+
+    foreach (['SettingSeeder', 'ContentSeeder', 'AdminUserSeeder'] as $seeder) {
+        try {
+            \Artisan::call('db:seed', [
+                '--class' => $seeder,
+                '--force' => true,
+            ]);
+            $output .= "✓ {$seeder}\n" . \Artisan::output() . "\n\n";
+        } catch (\Throwable $e) {
+            $output .= "✗ {$seeder}: " . $e->getMessage() . "\n\n";
+        }
+    }
+
+    return '<pre style="background:#111;color:#eee;padding:20px;font-family:monospace;">' . e($output) . '</pre>';
+});
