@@ -4,6 +4,8 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     git \
     curl \
+    ca-certificates \
+    gnupg \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
@@ -12,8 +14,6 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     zip \
     unzip \
-    nodejs \
-    npm \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # PHP extensions
@@ -50,13 +50,20 @@ COPY . .
 # Install PHP deps
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Install JS deps and build
-RUN npm install && npm run build && rm -rf node_modules
+# Install Node 20, build frontend, clean up
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install \
+    && npm run build \
+    && rm -rf node_modules \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage \
+    && chown -R www-data:www-data /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage \
+    && chmod -R 775 /var/www/html/bootstrap/cache
 
 # Copy entrypoint
 COPY docker-entrypoint.sh /usr/local/bin/
