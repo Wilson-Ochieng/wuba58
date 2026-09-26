@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
 {
     if (app()->environment('production')) {
         \Illuminate\Support\Facades\URL::forceScheme('https');
+          \Illuminate\Support\Facades\URL::forceRootUrl('https://wuba58.onrender.com');
     }
 
     if ($root = config('app.url')) {

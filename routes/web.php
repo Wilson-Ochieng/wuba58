@@ -57,3 +57,20 @@ Route::get('/run-seeder-2026', function () {
 
     return '<pre style="background:#111;color:#eee;padding:20px;font-family:monospace;">' . e($output) . '</pre>';
 });
+
+// TEMPORARY — remove after use
+Route::get('/debug-log-2026', function () {
+    if (request('key') !== 'wuba58-debug') {
+        abort(404);
+    }
+
+    $log = storage_path('logs/laravel.log');
+    if (! file_exists($log)) {
+        return 'No log file.';
+    }
+
+    $lines = file($log);
+    $last = array_slice($lines, -100);
+
+    return '<pre style="background:#111;color:#eee;padding:20px;">' . e(implode('', $last)) . '</pre>';
+});
