@@ -9,6 +9,8 @@ use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PhysicalModelsController;
 use App\Http\Controllers\TourController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 // Static pages
@@ -39,3 +41,6 @@ use App\Http\Controllers\BlogController;
 
 Route::get('/journal', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/journal/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+Route::get('/search', [SearchController::class, 'index'])->name('search');
