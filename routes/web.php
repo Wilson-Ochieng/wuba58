@@ -35,42 +35,7 @@ Route::get('/health', function () {
         'time' => now()->toIso8601String(),
     ]);
 });
-// TEMPORARY — remove after use
-Route::get('/run-seeder-2026', function () {
-    if (request('key') !== 'wuba58-seed') {
-        abort(404);
-    }
+use App\Http\Controllers\BlogController;
 
-    $output = '';
-
-    foreach (['SettingSeeder', 'ContentSeeder', 'AdminUserSeeder'] as $seeder) {
-        try {
-            \Artisan::call('db:seed', [
-                '--class' => $seeder,
-                '--force' => true,
-            ]);
-            $output .= "✓ {$seeder}\n" . \Artisan::output() . "\n\n";
-        } catch (\Throwable $e) {
-            $output .= "✗ {$seeder}: " . $e->getMessage() . "\n\n";
-        }
-    }
-
-    return '<pre style="background:#111;color:#eee;padding:20px;font-family:monospace;">' . e($output) . '</pre>';
-});
-
-// TEMPORARY — remove after use
-Route::get('/debug-log-2026', function () {
-    if (request('key') !== 'wuba58-debug') {
-        abort(404);
-    }
-
-    $log = storage_path('logs/laravel.log');
-    if (! file_exists($log)) {
-        return 'No log file.';
-    }
-
-    $lines = file($log);
-    $last = array_slice($lines, -100);
-
-    return '<pre style="background:#111;color:#eee;padding:20px;">' . e(implode('', $last)) . '</pre>';
-});
+Route::get('/journal', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/journal/{slug}', [BlogController::class, 'show'])->name('blog.show');

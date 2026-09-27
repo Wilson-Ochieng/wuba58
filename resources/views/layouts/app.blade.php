@@ -102,6 +102,7 @@
             <a href="/about"    class="hover:text-gold-400 transition">About</a>
             <a href="/process"  class="hover:text-gold-400 transition">Process</a>
             <a href="/contact"  class="hover:text-gold-400 transition">Contact</a>
+            <a href="/journal" class="hover:text-gold-400 transition">Journal</a>
         </nav>
 
         {{-- Desktop CTA --}}
@@ -150,6 +151,7 @@
             <a href="/about"    class="hover:text-gold-400 transition py-1">About</a>
             <a href="/process"  class="hover:text-gold-400 transition py-1">Process</a>
             <a href="/contact"  class="hover:text-gold-400 transition py-1">Contact</a>
+            <a href="/journal" class="hover:text-gold-400 transition py-1">Journal</a>
             <a href="/contact" class="btn-primary text-xs justify-center mt-3">Start a Project</a>
         </div>
     </div>

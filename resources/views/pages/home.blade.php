@@ -145,6 +145,8 @@
         @endforeach
     </div>
 </x-section>
+{{-- Testimonials --}}
+<x-testimonials />
 
 {{-- 08 — CTA --}}
 <x-cta-section />
