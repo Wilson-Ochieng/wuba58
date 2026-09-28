@@ -178,7 +178,8 @@
                         <li><a href="/services" class="hover:text-gold-400">Services</a></li>
                         <li><a href="/about" class="hover:text-gold-400">About</a></li>
                         <li><a href="/process" class="hover:text-gold-400">Process</a></li>
-                        <li><a href="/search" class="hover:text-gold-400">Search</a></li><li><a href="/faq" class="hover:text-gold-400">FAQ</a></li>
+                        <li><a href="/search" class="hover:text-gold-400">Search</a></li>
+                        <li><a href="/faq" class="hover:text-gold-400">FAQ</a></li>
                     </ul>
                 </div>
 
@@ -262,7 +263,25 @@
             </svg>
         </a>
     @endif
+    <x-cookie-banner />
+    @if (config('services.google_analytics.id'))
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
 
+            window.addEventListener('consent-granted', () => {
+                const script = document.createElement('script');
+                script.async = true;
+                script.src = 'https://www.googletagmanager.com/gtag/js?id={{ config('services.google_analytics.id') }}';
+                document.head.appendChild(script);
+
+                gtag('js', new Date());
+                gtag('config', '{{ config('services.google_analytics.id') }}', {
+                    anonymize_ip: true,
+                });
+            });
+        </script>
+    @endif
     @stack('scripts')
 </body>
 
