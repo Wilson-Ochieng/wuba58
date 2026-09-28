@@ -15,6 +15,7 @@ class Project extends Model implements HasMedia
     use HasFactory, SoftDeletes, InteractsWithMedia, HasSlug;
 
     protected $fillable = [
+        'project_category_id',
         'title',
         'slug',
         'location',
@@ -66,6 +67,10 @@ class Project extends Model implements HasMedia
     {
         return $this->hasMany(ModelHotspot::class)->orderBy('order');
     }
+    public function projectCategory()
+{
+    return $this->belongsTo(ProjectCategory::class);
+}
     public function scopePublished($query)
     {
         return $query->where('published', true);

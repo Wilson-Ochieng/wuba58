@@ -20,7 +20,7 @@
         {{-- Category badge --}}
         <div class="absolute top-4 left-4 px-3 py-1.5 text-xs uppercase tracking-widest text-cream-100 backdrop-blur-sm"
              style="background: rgba(22,21,21,0.6); border: 1px solid rgba(239,201,103,0.2);">
-            {{ ucfirst(str_replace('_', ' ', $project->category)) }}
+          {{ $project->projectCategory?->name ?? 'Uncategorised' }}
         </div>
 
         {{-- View Project button — pushed lower --}}

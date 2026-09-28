@@ -37,16 +37,23 @@ class ProjectResource extends Resource
                         ->required()
                         ->unique(ignoreRecord: true)
                         ->maxLength(255),
-
-                    Forms\Components\Select::make('category')
-                        ->options([
-                            'residential' => 'Residential',
-                            'commercial' => 'Commercial',
-                            'masterplan' => 'Masterplan',
-                            'mixed_use' => 'Mixed Use',
-                        ])
+                    Forms\Components\Select::make('project_category_id')
+                        ->label('Category')
+                        ->relationship('projectCategory', 'name')
+                        ->searchable()
+                        ->preload()
                         ->required()
-                        ->native(false),
+                        ->createOptionForm([
+                            Forms\Components\TextInput::make('name')
+                                ->required()
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(fn($state, Forms\Set $set) =>
+                                    $set('slug', \Str::slug($state))),
+                            Forms\Components\TextInput::make('slug')
+                                ->required()
+                                ->unique('project_categories', 'slug'),
+                            Forms\Components\ColorPicker::make('color')->default('#ECB143'),
+                        ]),
 
                     Forms\Components\TextInput::make('location')->maxLength(255),
                     Forms\Components\TextInput::make('scale')->maxLength(255)->placeholder('1:500'),
@@ -131,13 +138,11 @@ class ProjectResource extends Resource
 
                 Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('location')->searchable()->toggleable(),
-                Tables\Columns\BadgeColumn::make('category')
-                    ->colors([
-                        'primary' => 'residential',
-                        'success' => 'commercial',
-                        'warning' => 'masterplan',
-                        'danger' => 'mixed_use',
-                    ]),
+                Tables\Columns\TextColumn::make('projectCategory.name')
+                    ->label('Category')
+                    ->badge()
+                    ->color('gray')
+                    ->searchable(),
                 Tables\Columns\IconColumn::make('featured')->boolean(),
                 Tables\Columns\IconColumn::make('published')->boolean(),
                 Tables\Columns\TextColumn::make('order')->sortable(),
@@ -146,12 +151,11 @@ class ProjectResource extends Resource
             ->defaultSort('order')
             ->reorderable('order')
             ->filters([
-                Tables\Filters\SelectFilter::make('category')->options([
-                    'residential' => 'Residential',
-                    'commercial' => 'Commercial',
-                    'masterplan' => 'Masterplan',
-                    'mixed_use' => 'Mixed Use',
-                ]),
+                Tables\Filters\SelectFilter::make('project_category_id')
+                    ->label('Category')
+                    ->relationship('projectCategory', 'name')
+                    ->searchable()
+                    ->preload(),
                 Tables\Filters\TernaryFilter::make('featured'),
                 Tables\Filters\TernaryFilter::make('published'),
                 Tables\Filters\TrashedFilter::make(),
