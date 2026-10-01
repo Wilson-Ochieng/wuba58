@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Project;
+use App\Models\ProjectCategory;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,7 +21,6 @@ class ProjectFilter extends Component
 
     public function updating($field): void
     {
-        // Reset pagination when filters change
         if (in_array($field, ['category', 'search'])) {
             $this->resetPage();
         }
@@ -41,37 +41,52 @@ class ProjectFilter extends Component
     public function render()
     {
         $query = Project::published()
+            ->with('projectCategory')
             ->orderBy('order')
             ->orderByDesc('created_at');
 
+        // Filter by category slug (dynamic)
         if ($this->category !== 'all') {
-            $query->where('category', $this->category);
+            $query->whereHas('projectCategory', function ($q) {
+                $q->where('slug', $this->category);
+            });
         }
 
+        // Search across title, location, client, excerpt
         if (trim($this->search) !== '') {
             $term = '%' . trim($this->search) . '%';
             $query->where(function ($q) use ($term) {
                 $q->where('title', 'like', $term)
                     ->orWhere('location', 'like', $term)
                     ->orWhere('client_name', 'like', $term)
-                    ->orWhere('excerpt', 'like', $term);
+                    ->orWhere('excerpt', 'like', $term)
+                    ->orWhere('description', 'like', $term)
+                    ->orWhere('scale', 'like', $term)
+                    ->orWhere('year', 'like', $term)
+                    // Search by related category name or slug
+                    ->orWhereHas('projectCategory', function ($catQuery) use ($term) {
+                        $catQuery->where('name', 'like', $term)
+                            ->orWhere('slug', 'like', $term);
+                    });
             });
         }
 
         $projects = $query->paginate(12);
 
-        // Counts per category (unfiltered, for the tab badges)
-        $counts = [
-            'all' => Project::published()->count(),
-            'residential' => Project::published()->where('category', 'residential')->count(),
-            'commercial' => Project::published()->where('category', 'commercial')->count(),
-            'masterplan' => Project::published()->where('category', 'masterplan')->count(),
-            'mixed_use' => Project::published()->where('category', 'mixed_use')->count(),
-        ];
+        // Dynamic categories with counts
+        $categories = ProjectCategory::where('published', true)
+            ->orderBy('order')
+            ->withCount([
+                'projects' => fn($q) => $q->where('published', true),
+            ])
+            ->get();
+
+        $totalCount = Project::published()->count();
 
         return view('livewire.project-filter', [
             'projects' => $projects,
-            'counts' => $counts,
+            'categories' => $categories,
+            'totalCount' => $totalCount,
         ]);
     }
 }

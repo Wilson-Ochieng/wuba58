@@ -17,7 +17,7 @@ class ContactForm extends Component
     public string $company = '';
     public string $project_type = '';
     public string $message = '';
-    public string $website = '';   // honeypot field
+    // public string $website = '';   // honeypot field
 
     public bool $sent = false;
 
@@ -40,10 +40,7 @@ class ContactForm extends Component
 
     public function submit(): void
     {
-        // Honeypot
-        if (!empty($this->website)) {
-            abort(403);
-        }
+    
 
         $validated = $this->validate();
 
@@ -69,7 +66,7 @@ class ContactForm extends Component
             \Log::error('Auto-reply failed: ' . $e->getMessage());
         }
 
-        $this->reset(['name', 'email', 'phone', 'company', 'project_type', 'message', 'website']);
+        $this->reset(['name', 'email', 'phone', 'company', 'project_type', 'message']);
         $this->sent = true;
     }
 

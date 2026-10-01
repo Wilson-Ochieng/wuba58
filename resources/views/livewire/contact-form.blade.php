@@ -8,18 +8,13 @@
                 Thank you for getting in touch. We'll respond within one business day.
             </p>
             <button wire:click="$set('sent', false)"
+                    type="button"
                     class="btn-outline text-xs">
                 Send another message
             </button>
         </div>
     @else
         <form wire:submit="submit" class="space-y-6">
-
-            {{-- Honeypot (hidden from users, bots fill it) --}}
-            <div style="position:absolute;left:-9999px;" aria-hidden="true">
-                <label>Website</label>
-                <input type="text" wire:model="website" tabindex="-1" autocomplete="off">
-            </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
@@ -28,7 +23,8 @@
                     </label>
                     <input type="text" id="name" wire:model.blur="name"
                            class="w-full bg-charcoal-800 border border-charcoal-700 px-4 py-3 text-cream-100 focus:border-gold-500 focus:outline-none transition-colors"
-                           placeholder="Your full name">
+                           placeholder="Your full name"
+                           autocomplete="name">
                     @error('name') <p class="text-xs text-red-400 mt-2">{{ $message }}</p> @enderror
                 </div>
 
@@ -38,7 +34,8 @@
                     </label>
                     <input type="email" id="email" wire:model.blur="email"
                            class="w-full bg-charcoal-800 border border-charcoal-700 px-4 py-3 text-cream-100 focus:border-gold-500 focus:outline-none transition-colors"
-                           placeholder="you@company.com">
+                           placeholder="you@company.com"
+                           autocomplete="email">
                     @error('email') <p class="text-xs text-red-400 mt-2">{{ $message }}</p> @enderror
                 </div>
             </div>
@@ -50,7 +47,8 @@
                     </label>
                     <input type="tel" id="phone" wire:model.blur="phone"
                            class="w-full bg-charcoal-800 border border-charcoal-700 px-4 py-3 text-cream-100 focus:border-gold-500 focus:outline-none transition-colors"
-                           placeholder="+254 ...">
+                           placeholder="+254 ..."
+                           autocomplete="tel">
                     @error('phone') <p class="text-xs text-red-400 mt-2">{{ $message }}</p> @enderror
                 </div>
 
@@ -60,7 +58,8 @@
                     </label>
                     <input type="text" id="company" wire:model.blur="company"
                            class="w-full bg-charcoal-800 border border-charcoal-700 px-4 py-3 text-cream-100 focus:border-gold-500 focus:outline-none transition-colors"
-                           placeholder="Optional">
+                           placeholder="Optional"
+                           autocomplete="organization">
                     @error('company') <p class="text-xs text-red-400 mt-2">{{ $message }}</p> @enderror
                 </div>
             </div>

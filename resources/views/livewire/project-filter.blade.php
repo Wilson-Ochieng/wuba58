@@ -4,56 +4,50 @@
     <div class="mb-10 md:mb-14">
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
 
-            {{-- Category tabs --}}
+            {{-- Category tabs — dynamic --}}
             <div class="flex flex-wrap gap-2 md:gap-3">
-                @php
-                    $categories = [
-                        'all' => 'All Work',
-                        'residential' => 'Residential',
-                        'commercial' => 'Commercial',
-                        'masterplan' => 'Masterplan',
-                        'mixed_use' => 'Mixed Use',
-                    ];
-                @endphp
+                {{-- "All Work" tab --}}
+                <button wire:click="setCategory('all')" type="button"
+                    class="group px-4 md:px-5 py-2.5 text-xs uppercase tracking-widest transition-all duration-300"
+                    style="border: 1px solid {{ $category === 'all' ? 'rgba(236,177,67,0.7)' : 'rgba(239,201,103,0.15)' }}; {{ $category === 'all' ? 'background: linear-gradient(135deg, rgba(239,201,103,0.15), rgba(228,134,51,0.08));' : '' }}">
+                    <span
+                        class="{{ $category === 'all' ? 'text-gradient-gold font-semibold' : 'text-charcoal-200 group-hover:text-gold-400' }} transition-colors">
+                        All Work
+                    </span>
+                    <span class="ml-2 text-charcoal-400 text-[10px]">{{ $totalCount }}</span>
+                </button>
 
-                @foreach ($categories as $key => $label)
-                    <button
-                        wire:click="setCategory('{{ $key }}')"
-                        type="button"
+                {{-- Dynamic category tabs --}}
+                @foreach ($categories as $cat)
+                    <button wire:click="setCategory('{{ $cat->slug }}')" type="button"
                         class="group px-4 md:px-5 py-2.5 text-xs uppercase tracking-widest transition-all duration-300"
-                        style="border: 1px solid {{ $category === $key ? 'rgba(236,177,67,0.7)' : 'rgba(239,201,103,0.15)' }}; {{ $category === $key ? 'background: linear-gradient(135deg, rgba(239,201,103,0.15), rgba(228,134,51,0.08));' : '' }}"
-                    >
-                        <span class="{{ $category === $key ? 'text-gradient-gold font-semibold' : 'text-charcoal-200 group-hover:text-gold-400' }} transition-colors">
-                            {{ $label }}
+                        style="border: 1px solid {{ $category === $cat->slug ? 'rgba(236,177,67,0.7)' : 'rgba(239,201,103,0.15)' }}; {{ $category === $cat->slug ? 'background: linear-gradient(135deg, rgba(239,201,103,0.15), rgba(228,134,51,0.08));' : '' }}">
+                        <span
+                            class="{{ $category === $cat->slug ? 'text-gradient-gold font-semibold' : 'text-charcoal-200 group-hover:text-gold-400' }} transition-colors">
+                            {{ $cat->name }}
                         </span>
-                        <span class="ml-2 text-charcoal-400 text-[10px]">
-                            {{ $counts[$key] }}
-                        </span>
+                        <span class="ml-2 text-charcoal-400 text-[10px]">{{ $cat->projects_count }}</span>
                     </button>
                 @endforeach
             </div>
 
             {{-- Search --}}
             <div class="relative w-full lg:w-80">
-                <input
-                    type="text"
-                    wire:model.live.debounce.300ms="search"
-                    placeholder="Search projects…"
-                    class="w-full bg-charcoal-800 border border-charcoal-700 pl-11 pr-11 py-3 text-sm text-cream-100 placeholder-charcoal-400 focus:border-gold-500 focus:outline-none transition-colors"
-                >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                     class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-charcoal-400 pointer-events-none">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search projects…"
+                    class="w-full bg-charcoal-800 border border-charcoal-700 pl-11 pr-11 py-3 text-sm text-cream-100 placeholder-charcoal-400 focus:border-gold-500 focus:outline-none transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor"
+                    class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-charcoal-400 pointer-events-none">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
 
                 @if ($search !== '')
-                    <button
-                        type="button"
-                        wire:click="clearSearch"
+                    <button type="button" wire:click="clearSearch"
                         class="absolute right-4 top-1/2 -translate-y-1/2 text-charcoal-400 hover:text-gold-400 transition-colors"
-                        aria-label="Clear search"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                        aria-label="Clear search">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -70,7 +64,7 @@
             {{ Str::plural('project', $projects->total()) }}
             @if ($category !== 'all' || $search !== '')
                 <button type="button" wire:click="setCategory('all'); $set('search', '')"
-                        class="ml-3 text-charcoal-300 hover:text-gold-400 underline">
+                    class="ml-3 text-charcoal-300 hover:text-gold-400 underline">
                     Clear filters
                 </button>
             @endif
@@ -79,9 +73,11 @@
 
     {{-- Loading overlay --}}
     <div wire:loading.delay.flex wire:target="category,search,setCategory,clearSearch"
-         class="hidden items-center justify-center py-24">
+        class="hidden items-center justify-center py-24">
         <div class="text-center">
-            <div class="inline-block w-8 h-8 border-2 border-gold-500/30 border-t-gold-500 rounded-full animate-spin mb-4"></div>
+            <div
+                class="inline-block w-8 h-8 border-2 border-gold-500/30 border-t-gold-500 rounded-full animate-spin mb-4">
+            </div>
             <div class="text-xs uppercase tracking-widest text-charcoal-400">Loading projects…</div>
         </div>
     </div>
@@ -100,8 +96,7 @@
                         Nothing published in this category yet.
                     @endif
                 </p>
-                <button type="button" wire:click="setCategory('all'); $set('search', '')"
-                        class="btn-outline text-xs">
+                <button type="button" wire:click="setCategory('all'); $set('search', '')" class="btn-outline text-xs">
                     View all work
                 </button>
             </div>
