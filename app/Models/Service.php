@@ -12,7 +12,7 @@ class Service extends Model implements HasMedia
 {
     use InteractsWithMedia, HasSlug;
 
-    protected $fillable = ['title', 'slug', 'description', 'icon', 'published', 'order'];
+    protected $fillable = ['title', 'slug', 'group', 'description', 'icon', 'published', 'order'];
     protected $casts = ['published' => 'boolean'];
 
     public function getSlugOptions(): SlugOptions
@@ -23,5 +23,15 @@ class Service extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('image')->singleFile();
+    }
+
+    public const GROUPS = [
+        'scale_models' => 'Architectural Scale Models',
+        'visualizations' => '3D Visualizations',
+    ];
+
+    public function scopeInGroup($query, string $group)
+    {
+        return $query->where('group', $group);
     }
 }

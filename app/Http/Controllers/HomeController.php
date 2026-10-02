@@ -15,8 +15,18 @@ class HomeController extends Controller
     {
         return view('pages.home', [
             'hero' => [
+                'eyebrow' => Setting::get('hero.eyebrow', 'Nairobi · Shenzhen · Nanchang'),
                 'headline' => Setting::get('hero.headline', "WE TURN ARCHITECTURE\nINTO SOMETHING YOU CAN SEE."),
-                'subtext' => Setting::get('hero.subtext', 'Precision architectural models and 3D visualizations.'),
+                'headline_accent' => Setting::get('hero.headline_accent', 'SOMETHING YOU CAN SEE.'),
+                'subtext' => Setting::get('hero.subtext', 'Precision architectural models and 3D visualizations that bring developments to life.'),
+                'primary_cta' => [
+                    'label' => Setting::get('hero.primary_cta_label', 'Explore Our Work'),
+                    'url' => Setting::get('hero.primary_cta_url', '/work'),
+                ],
+                'secondary_cta' => [
+                    'label' => Setting::get('hero.secondary_cta_label', 'Start a Project'),
+                    'url' => Setting::get('hero.secondary_cta_url', '/contact'),
+                ],
             ],
             'services' => Service::where('published', true)->orderBy('order')->get(),
             'process' => ProcessStep::orderBy('order')->get(),

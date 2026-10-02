@@ -74,7 +74,7 @@ class SearchController extends Controller
                         'title' => $s->title,
                         'excerpt' => $s->description,
                         'url' => '/services#' . $s->slug,
-                        'meta' => 'Service',
+                       'meta' => 'Service · ' . (\App\Models\Service::GROUPS[$s->group] ?? 'Service'),
                         'image' => $s->hasMedia('image') ? $s->getFirstMediaUrl('image') : null,
                     ]);
                 $counts['services'] = $services->count();

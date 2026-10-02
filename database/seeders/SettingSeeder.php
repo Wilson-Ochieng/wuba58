@@ -16,13 +16,56 @@ class SettingSeeder extends Seeder
             ['key' => 'site.tagline', 'value' => 'Perfection · Vision · Craftsmanship · Quality', 'group' => 'general'],
             ['key' => 'site.positioning', 'value' => 'Architectural Models · 3D Visualization · Development Presentation', 'group' => 'general'],
 
+
             // Hero
+            ['key' => 'hero.eyebrow', 'value' => 'Nairobi · Shenzhen · Nanchang', 'group' => 'homepage', 'type' => 'text'],
             ['key' => 'hero.headline', 'value' => "WE TURN ARCHITECTURE\nINTO SOMETHING YOU CAN SEE.", 'group' => 'homepage', 'type' => 'textarea'],
+            ['key' => 'hero.headline_accent', 'value' => 'SOMETHING YOU CAN SEE.', 'group' => 'homepage', 'type' => 'text'],
             ['key' => 'hero.subtext', 'value' => 'Precision architectural models and 3D visualizations that bring developments to life.', 'group' => 'homepage', 'type' => 'textarea'],
+            ['key' => 'hero.primary_cta_label', 'value' => 'Explore Our Work', 'group' => 'homepage', 'type' => 'text'],
+            ['key' => 'hero.primary_cta_url', 'value' => '/work', 'group' => 'homepage', 'type' => 'text'],
+            ['key' => 'hero.secondary_cta_label', 'value' => 'Start a Project', 'group' => 'homepage', 'type' => 'text'],
+            ['key' => 'hero.secondary_cta_url', 'value' => '/contact', 'group' => 'homepage', 'type' => 'text'],
 
             // Intro
-            ['key' => 'intro.body', 'value' => "At Wuba 58 City Models, we build precision architectural and property scale models for developers, architects, and investors across Nairobi and beyond — turning technical drawings into tangible, sellable stories. Whether it's a single residential unit or a full master-planned development, our models help you close deals faster by giving clients the clarity that drawings and screens can't.", 'group' => 'homepage', 'type' => 'textarea'],
-            ['key' => 'intro.body_2', 'value' => 'Wuba 58 City Models has 18 years of craftsmanship experience, headquartered in Shenzhen, China, with branches in Nanchang and Nairobi, Kenya. We have formed strategic partnerships with hundreds of well-known developers worldwide and have completed over 3,000 projects globally.', 'group' => 'homepage', 'type' => 'textarea'],
+                // Section headings (dynamic)
+            ['key' => 'intro.label', 'value' => '01 — Introduction', 'group' => 'homepage'],
+            ['key' => 'intro.title', 'value' => "See the city before it's built.", 'group' => 'homepage'],
+            ['key' => 'services.label', 'value' => '02 — What We Create', 'group' => 'homepage'],
+            ['key' => 'services.title', 'value' => 'Models built to be experienced.', 'group' => 'homepage'],
+            ['key' => 'process.label', 'value' => '03 — The WUBA Experience', 'group' => 'homepage'],
+            ['key' => 'process.title', 'value' => 'From drawing<br>to model.', 'group' => 'homepage'],
+            ['key' => 'portfolio.label', 'value' => '04 — Selected Work', 'group' => 'homepage'],
+            ['key' => 'portfolio.title', 'value' => 'Portfolio', 'group' => 'homepage'],
+            ['key' => 'portfolio.cta_label', 'value' => 'View All Projects', 'group' => 'homepage'],
+            ['key' => 'values.label', 'value' => '05 — Why WUBA', 'group' => 'homepage'],
+            ['key' => 'values.title', 'value' => 'What sets our work apart.', 'group' => 'homepage'],
+            ['key' => 'beforeafter.label', 'value' => '06 — Before / After', 'group' => 'homepage'],
+            ['key' => 'beforeafter.title', 'value' => 'Drawing → Model.', 'group' => 'homepage'],
+            ['key' => 'beforeafter.before_label', 'value' => 'Architectural Drawing', 'group' => 'homepage'],
+            ['key' => 'beforeafter.before_caption', 'value' => 'CAD / Plan', 'group' => 'homepage'],
+            ['key' => 'beforeafter.after_label', 'value' => 'WUBA Model', 'group' => 'homepage'],
+            ['key' => 'beforeafter.after_caption', 'value' => 'Physical Model', 'group' => 'homepage'],
+            ['key' => 'clients.label', 'value' => '07 — Who We Work With', 'group' => 'homepage'],
+            ['key' => 'clients.title', 'value' => 'Trusted by teams shaping<br>the built environment.', 'group' => 'homepage'],
+
+                // Stats
+            ['key' => 'stats.years', 'value' => '18', 'group' => 'homepage'],
+            ['key' => 'stats.years_label', 'value' => 'Years of Craft', 'group' => 'homepage'],
+            ['key' => 'stats.projects', 'value' => '3K+', 'group' => 'homepage'],
+            ['key' => 'stats.projects_label', 'value' => 'Projects Worldwide', 'group' => 'homepage'],
+            ['key' => 'stats.studios', 'value' => '3', 'group' => 'homepage'],
+            ['key' => 'stats.studios_label', 'value' => 'Global Studios', 'group' => 'homepage'],
+            ['key' => 'stats.partners', 'value' => '100s', 'group' => 'homepage'],
+            ['key' => 'stats.partners_label', 'value' => 'Developer Partners', 'group' => 'homepage'],
+
+                // Section CTAs
+            ['key' => 'services.cta_whatsapp_label', 'value' => 'WhatsApp us', 'group' => 'homepage'],
+            ['key' => 'services.cta_email_label', 'value' => 'Email us', 'group' => 'homepage'],
+            ['key' => 'services.cta_message', 'value' => "Hi Wuba 58, I'd like to discuss a model project.", 'group' => 'homepage', 'type' => 'textarea'],
+            ['key' => 'values.cta_whatsapp_label', 'value' => 'Chat on WhatsApp', 'group' => 'homepage'],
+            ['key' => 'values.cta_secondary_label', 'value' => 'Start a Project →', 'group' => 'homepage'],
+            ['key' => 'values.cta_secondary_url', 'value' => '/contact', 'group' => 'homepage'],
 
             // Contact
             ['key' => 'contact.phone', 'value' => '+254182466818', 'group' => 'contact'],

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       {{-- CSRF token for Livewire and Axios --}}
+    {{-- CSRF token for Livewire and Axios --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Wuba 58 City Models')</title>
     <meta name="description" content="@yield('description', 'Precision architectural models and 3D visualizations.')">
@@ -93,7 +93,50 @@
                     </div>
                 </div>
 
-                <a href="/services" class="hover:text-gold-400 transition">Services</a>
+                {{-- Services dropdown --}}
+                <div x-data="{
+        open: false,
+        timer: null,
+        show() { clearTimeout(this.timer); this.open = true; },
+        hide() { this.timer = setTimeout(() => { this.open = false; }, 200); }
+    }" @mouseenter="show()" @mouseleave="hide()" @click.outside="open = false" class="relative">
+                    <button @click="open = !open" type="button"
+                        class="flex items-center gap-1.5 py-2 hover:text-gold-400 transition"
+                        :class="open ? 'text-gold-400' : ''">
+                        Services
+                        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+
+                    {{-- Invisible bridge --}}
+                    <div x-show="open" x-cloak class="absolute left-0 right-0 top-full h-4"></div>
+
+                    <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 -translate-y-2"
+                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:leave="transition ease-in duration-150"
+                        x-transition:leave-start="opacity-100 translate-y-0"
+                        x-transition:leave-end="opacity-0 -translate-y-2" x-cloak
+                        class="absolute left-0 top-full mt-4 min-w-[280px] py-2 z-50"
+                        style="background: rgba(22,21,21,0.98); border: 1px solid rgba(236,177,67,0.15); backdrop-filter: blur(12px); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.8);">
+                        <a href="/services"
+                            class="block px-5 py-3 hover:bg-charcoal-800 transition-colors text-cream-100 hover:text-gold-400 text-xs uppercase tracking-widest font-semibold whitespace-nowrap border-b border-charcoal-700">
+                            All Services
+                        </a>
+
+                        <a href="/services#scale-models"
+                            class="block px-5 py-3 hover:bg-charcoal-800 transition-colors text-cream-100 hover:text-gold-400 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+                            Architectural Scale Models
+                        </a>
+
+                        <a href="/services#visualizations"
+                            class="block px-5 py-3 hover:bg-charcoal-800 transition-colors text-cream-100 hover:text-gold-400 text-xs uppercase tracking-widest font-semibold whitespace-nowrap">
+                            3D Visualizations
+                        </a>
+                    </div>
+                </div>
                 <a href="/about" class="hover:text-gold-400 transition">About</a>
                 <a href="/process" class="hover:text-gold-400 transition">Process</a>
                 <a href="/faq" class="hover:text-gold-400 transition">FAQ</a>
@@ -143,7 +186,12 @@
                     Virtual Tour</a>
                 <div class="h-px my-1"
                     style="background: linear-gradient(90deg, transparent, rgba(236,177,67,0.3), transparent);"></div>
-                <a href="/services" class="hover:text-gold-400 transition py-1">Services</a>
+                <a href="/services" class="hover:text-gold-400 transition py-1">Services — All</a>
+                <a href="/services#scale-models"
+                    class="hover:text-gold-400 transition py-1 pl-4 text-charcoal-300 text-xs">Architectural Scale
+                    Models</a>
+                <a href="/services#visualizations"
+                    class="hover:text-gold-400 transition py-1 pl-4 text-charcoal-300 text-xs">3D Visualizations</a>
                 <a href="/about" class="hover:text-gold-400 transition py-1">About</a>
                 <a href="/process" class="hover:text-gold-400 transition py-1">Process</a>
                 <a href="/faq" class="hover:text-gold-400 transition py-1">FAQ</a>
