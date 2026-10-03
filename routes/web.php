@@ -12,6 +12,7 @@ use App\Http\Controllers\TourController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\BrochureController;
 use Illuminate\Support\Facades\Route;
 
 // Static pages
@@ -46,3 +47,7 @@ Route::get('/journal/{slug}', [BlogController::class, 'show'])->name('blog.show'
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
+Route::get('/e-brochure', [BrochureController::class, 'index'])->name('brochures.index');
+Route::post('/e-brochure/request', [BrochureController::class, 'request'])->name('brochures.request');
+Route::get('/e-brochure/{slug}', [BrochureController::class, 'show'])->name('brochures.show');
+Route::get('/e-brochure/{slug}/thanks', [BrochureController::class, 'thanks'])->name('brochures.thanks');

@@ -138,6 +138,7 @@
                     </div>
                 </div>
                 <a href="/about" class="hover:text-gold-400 transition">About</a>
+                <a href="/e-brochure" class="hover:text-gold-400 transition">E-Brochure</a>
                 <a href="/process" class="hover:text-gold-400 transition">Process</a>
                 <a href="/faq" class="hover:text-gold-400 transition">FAQ</a>
                 <a href="/contact" class="hover:text-gold-400 transition">Contact</a>
@@ -193,6 +194,7 @@
                 <a href="/services#visualizations"
                     class="hover:text-gold-400 transition py-1 pl-4 text-charcoal-300 text-xs">3D Visualizations</a>
                 <a href="/about" class="hover:text-gold-400 transition py-1">About</a>
+                <a href="/e-brochure" class="hover:text-gold-400 transition py-1">E-Brochure</a>
                 <a href="/process" class="hover:text-gold-400 transition py-1">Process</a>
                 <a href="/faq" class="hover:text-gold-400 transition py-1">FAQ</a>
                 <a href="/contact" class="hover:text-gold-400 transition py-1">Contact</a>
@@ -227,6 +229,7 @@
                         <li><a href="/work" class="hover:text-gold-400">Work</a></li>
                         <li><a href="/services" class="hover:text-gold-400">Services</a></li>
                         <li><a href="/about" class="hover:text-gold-400">About</a></li>
+                        <li><a href="/e-brochure" class="hover:text-gold-400">E-Brochure</a></li>
                         <li><a href="/process" class="hover:text-gold-400">Process</a></li>
                         <li><a href="/search" class="hover:text-gold-400">Search</a></li>
                         <li><a href="/faq" class="hover:text-gold-400">FAQ</a></li>
